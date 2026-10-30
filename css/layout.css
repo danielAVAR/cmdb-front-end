@@ -1,0 +1,124 @@
+/* layout.css
+   barra superior, contenedores de pagina y breakpoints responsive */
+
+/* barra superior: siglas a la izquierda, enlaces a la derecha */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px clamp(16px, 4vw, 40px);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+}
+
+/* en la pagina de inicio la barra flota y se vuelve vidrio al hacer scroll */
+.nav {
+    position: fixed;
+    inset: 0 0 auto 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    transition: background .35s, backdrop-filter .35s, border-color .35s;
+}
+.nav.scrolled {
+    background: rgba(9, 9, 11, .55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border-color: var(--border);
+}
+
+.brand {
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: .25em;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+nav a {
+    margin-left: 18px;
+    font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+    opacity: .8;
+    transition: opacity .2s, color .2s;
+}
+nav a:hover { opacity: 1; color: var(--amber); }
+
+/* contenedor principal: el encabezado queda debajo de la barra fija */
+main {
+    position: relative;
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 120px clamp(16px, 4vw, 40px) 60px;
+}
+
+/* encabezado con foco de luz (inicio) */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    width: 520px;
+    height: 220px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(245, 158, 11, .18), transparent);
+    filter: blur(20px);
+    pointer-events: none;
+}
+.hero h1 {
+    position: relative;
+    font-size: clamp(28px, 5vw, 42px);
+}
+.kicker {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--amber);
+}
+.lead {
+    position: relative;
+    max-width: 560px;
+    margin: 0;
+    color: var(--muted);
+}
+
+/* pagina de login: tarjeta centrada */
+main.auth {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+}
+
+/* pagina de detalle: ancho de lectura */
+main.detail { max-width: 900px; }
+
+/* panel admin: secciones apiladas */
+main.admin {
+    display: grid;
+    gap: 28px;
+    max-width: 900px;
+}
+
+/* detalle de pelicula: poster y datos lado a lado */
+.movie {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 20px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+}
+.movie h1 { margin: 0 0 8px; font-size: 24px; }
+.movie p { line-height: 1.5; }
+
+/* breakpoints: celular */
+@media (max-width: 720px) {
+    .movie { grid-template-columns: 1fr; }
+    .nav-links a, nav a { margin-left: 12px; font-size: 13px; }
+    main { padding-top: 110px; }
+}

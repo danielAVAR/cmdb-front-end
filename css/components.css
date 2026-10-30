@@ -1,0 +1,385 @@
+/* components.css
+   botones, tarjetas, formularios, alertas y bloques reutilizables */
+
+/* ---------- botones ---------- */
+button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color .2s, transform .2s, opacity .2s;
+}
+button:disabled { opacity: .4; cursor: default; }
+
+button.primary {
+    padding: 11px 16px;
+    border: 0;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+}
+button.secondary { padding: 11px 16px; }
+button.approve { border-color: var(--ok); color: var(--ok); }
+button.reject,
+button.danger { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- formularios ---------- */
+label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+input,
+textarea {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+}
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--amber);
+    border-color: transparent;
+}
+textarea { min-height: 90px; resize: vertical; }
+
+select {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+}
+select:hover { border-color: var(--amber); }
+select:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(245, 158, 11, .35); }
+
+.field-error {
+    min-height: 0;
+    font-size: 13px;
+    color: var(--accent);
+}
+
+/* formulario de login y registro dentro de la tarjeta */
+.card form {
+    display: none;
+    flex-direction: column;
+    gap: 14px;
+}
+.card form.active { display: flex; }
+.card form button.primary { width: 100%; }
+
+/* formulario de resena */
+form.review-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+}
+.form-actions { display: flex; gap: 10px; }
+
+/* formulario de categoria: campo y boton en una linea */
+form.cat-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+}
+form.cat-form input { flex: 1; min-width: 200px; }
+form.cat-form .field-error { width: 100%; }
+
+/* ---------- tarjeta de login ---------- */
+.card {
+    width: 100%;
+    max-width: 420px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+}
+.tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.tab {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+}
+.tab.active { border-color: var(--accent); color: var(--text); }
+
+/* ---------- alertas y mensajes ---------- */
+.alert {
+    display: none;
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--accent);
+    background: rgba(229, 9, 20, .08);
+    color: var(--error);
+    font-size: 14px;
+}
+.alert.show { display: block; }
+.alert.ok {
+    border-color: var(--ok);
+    background: rgba(62, 207, 142, .08);
+    color: var(--ok);
+}
+
+.empty {
+    padding: 40px 0;
+    text-align: center;
+    color: var(--muted);
+}
+
+.meta {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--muted);
+}
+.meta strong { color: var(--text); font-weight: 600; }
+
+/* ---------- filtros y contador (listado) ---------- */
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 32px 0 20px;
+}
+.filters { display: flex; flex-wrap: wrap; gap: 10px; }
+.count { font-size: 14px; color: var(--muted); }
+
+/* ---------- filas de pelicula (listado) ---------- */
+.list { display: grid; gap: 14px; }
+
+.movie-row {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1.4fr);
+    gap: 22px;
+    align-items: center;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    color: inherit;
+    text-decoration: none;
+    opacity: 0;
+    transition: transform .45s var(--ease), border-color .3s, box-shadow .45s var(--ease), opacity .3s;
+}
+/* entrada escalonada: solo al aparecer */
+.movie-row.in {
+    opacity: 1;
+    animation: fadeUp .6s var(--ease) backwards;
+    animation-delay: calc(var(--i, 0) * 70ms);
+}
+/* salida al cambiar de filtro */
+.movie-row.out {
+    animation: none;
+    opacity: 0;
+    transform: scale(.96);
+    transition: opacity .25s, transform .25s;
+}
+/* hover: se eleva y brilla con el rojo butaca */
+.movie-row.in:hover {
+    transform: translateY(-4px);
+    border-color: rgba(229, 9, 20, .55);
+    box-shadow: 0 22px 44px -20px rgba(229, 9, 20, .55);
+}
+.movie-row:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.poster {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface) center / cover no-repeat;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+/* poster sin imagen: degradado y la inicial del titulo */
+.poster.fallback {
+    background:
+        radial-gradient(circle at 30% 20%, hsl(var(--h) 80% 55% / .45), transparent 60%),
+        linear-gradient(160deg, hsl(var(--h) 55% 28%), #050507);
+}
+.poster.fallback span {
+    font-size: 44px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, .18);
+}
+
+.center h2 { margin: 0 0 8px; font-size: 19px; font-weight: 700; }
+.right p { margin: 0 0 12px; font-size: 14px; line-height: 1.55; color: var(--muted); }
+.stars { font-size: 15px; letter-spacing: 2px; color: var(--amber); }
+.stats { font-size: 14px; line-height: 1.8; }
+.stats strong { color: var(--accent); }
+
+/* poster del detalle: mas grande que en el listado */
+.movie .poster { width: 200px; height: 300px; }
+
+/* esqueletos de carga */
+.skeleton {
+    height: 204px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: linear-gradient(90deg, var(--surface) 25%, var(--surface-2) 50%, var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+}
+
+/* paginacion */
+.pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 28px;
+    font-size: 14px;
+    color: var(--muted);
+}
+.pager button { padding: 9px 16px; border-radius: 10px; background: var(--surface); }
+.pager button:hover:not(:disabled) { border-color: var(--amber); transform: translateY(-2px); }
+
+/* ---------- top del mes ---------- */
+.top { margin-top: 36px; }
+.top h2.section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 14px;
+    font-size: 20px;
+    font-weight: 800;
+}
+.top h2.section-title small { font-size: 13px; font-weight: 400; color: var(--muted); }
+
+.top-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 12px;
+}
+.top-card {
+    position: relative;
+    display: block;
+    padding: 16px;
+    overflow: hidden;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    background: linear-gradient(180deg, var(--surface-2), var(--surface));
+    color: inherit;
+    text-decoration: none;
+    opacity: 0;
+    transition: transform .4s var(--ease), border-color .3s, box-shadow .4s var(--ease);
+}
+.top-card.in {
+    opacity: 1;
+    animation: fadeUp .6s var(--ease) backwards;
+    animation-delay: calc(var(--i, 0) * 80ms);
+}
+.top-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(245, 158, 11, .6);
+    box-shadow: 0 18px 36px -18px rgba(245, 158, 11, .5);
+}
+.top-card:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+.top-card h3 { margin: 0 0 6px; padding-right: 40px; }
+.top-card .stars { font-size: 13px; }
+.top-card .meta { font-size: 13px; }
+.top-card .meta strong { color: var(--accent); }
+
+/* numero de puesto grande y casi transparente */
+.top-num {
+    position: absolute;
+    top: -6px;
+    right: 10px;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(245, 158, 11, .12);
+    pointer-events: none;
+}
+
+/* ---------- lista de administracion ---------- */
+.item {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+.item .info { font-size: 14px; color: var(--muted); }
+.actions { display: flex; gap: 8px; }
+
+/* ---------- resenas (detalle) ---------- */
+.review {
+    margin-bottom: 10px;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+.review header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: static;
+}
+.review .autor { font-size: 13px; color: var(--muted); }
+.review .cal { font-weight: 700; color: var(--accent); }
+.review-actions { display: flex; gap: 8px; margin-top: 10px; }
+.review-actions button { font-size: 13px; }
+.review-actions button.danger { color: var(--accent); }
+
+/* ---------- promedio grande (detalle) ---------- */
+.promedio {
+    margin: 12px 0;
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+/* ---------- responsive de componentes ---------- */
+@media (max-width: 720px) {
+    .movie-row { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; }
+    .movie-row .poster { width: 92px; height: 138px; }
+    .right { grid-column: 1 / -1; }
+    .skeleton { height: 160px; }
+    .movie .poster { width: 100%; height: 260px; }
+}
+
+/* el listado cuenta con su propia regla de movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .movie-row { opacity: 1; }
+    .top-card:not(.in) { opacity: 1; }
+}
