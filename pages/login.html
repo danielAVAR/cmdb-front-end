@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMDB · Acceso</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+    <header>
+        <a class="brand" href="movies.html">CMDB</a>
+        <nav>
+            <a href="movies.html">Inicio</a>
+            <a href="admin_panel.html">Admin</a>
+        </nav>
+    </header>
+
+    <main class="auth">
+        <section class="card">
+            <div class="tabs">
+                <button class="tab active" data-tab="login" type="button">Iniciar sesión</button>
+                <button class="tab" data-tab="register" type="button">Registrarse</button>
+            </div>
+
+            <div id="alert" class="alert" role="alert"></div>
+
+            <form id="login-form" class="active" novalidate>
+                <label>Email
+                    <input type="email" name="email" autocomplete="email" required>
+                    <span class="field-error" data-error="email"></span>
+                </label>
+                <label>Contraseña
+                    <input type="password" name="password" autocomplete="current-password" required>
+                    <span class="field-error" data-error="password"></span>
+                </label>
+                <button class="primary" type="submit">Entrar</button>
+            </form>
+
+            <form id="register-form" novalidate>
+                <label>Nombre
+                    <input type="text" name="nombre" autocomplete="name" required>
+                    <span class="field-error" data-error="nombre"></span>
+                </label>
+                <label>Email
+                    <input type="email" name="email" autocomplete="email" required>
+                    <span class="field-error" data-error="email"></span>
+                </label>
+                <label>Contraseña (mínimo 8 caracteres)
+                    <input type="password" name="password" autocomplete="new-password" required>
+                    <span class="field-error" data-error="password"></span>
+                </label>
+                <button class="primary" type="submit">Crear cuenta</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="../js/login.js"></script>
+</body>
+</html>
