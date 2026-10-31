@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMDB · Catálogo</title>
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+    <!-- navegacion: siglas en la esquina, enlaces a la derecha -->
+    <header class="nav" id="nav">
+        <a class="brand" href="movies.html">CMDB</a>
+        <nav class="nav-links">
+            <a href="movies.html">Inicio</a>
+            <a href="admin_panel.html">Admin</a>
+            <a href="login.html">Iniciar sesión</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- encabezado -->
+        <section class="hero">
+            <p class="kicker">Catálogo</p>
+            <h1>Explora las películas</h1>
+            <p class="lead">Ordena por ranking o popularidad, y filtra por categoría para ver solo lo que te interesa.</p>
+        </section>
+
+        <!-- top del mes: extra fuera del documento de hu; los datos vendran de un endpoint del backend -->
+        <section class="top" aria-labelledby="top-title">
+            <h2 class="section-title" id="top-title">Top del mes <small id="top-periodo"></small></h2>
+            <div id="top-grid" class="top-grid" aria-busy="true"></div>
+        </section>
+
+        <!-- filtros: categoria (hu-28) y orden (hu-27) -->
+        <div class="toolbar">
+            <div class="filters">
+                <select id="categoria" aria-label="Filtrar por categoría"></select>
+                <select id="orden" aria-label="Ordenar por">
+                    <option value="ranking">Ranking</option>
+                    <option value="popularidad">Popularidad</option>
+                </select>
+            </div>
+            <span class="count" id="count" aria-live="polite"></span>
+        </div>
+
+        <div id="alert" class="alert" role="alert"></div>
+
+        <!-- listado -->
+        <div id="list" class="list" aria-busy="false"></div>
+
+        <!-- paginacion (hu-27) -->
+        <nav class="pager" aria-label="Paginación">
+            <button id="prev" type="button">Anterior</button>
+            <span id="page-info"></span>
+            <button id="next" type="button">Siguiente</button>
+        </nav>
+    </main>
+
+    <script src="../js/movies.js"></script>
+</body>
+</html>
